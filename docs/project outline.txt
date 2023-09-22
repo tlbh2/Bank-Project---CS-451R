@@ -1,0 +1,23 @@
+1.Personal Expense Tracker
+
+- Allow users to input daily expenses and categorize them.
+- Visual analytics: Monthly/Yearly expense breakdowns, category-wise spending, etc.
+- Implement machine learning for predictive budgeting based on past spending habits.
+
+2.Micro-Investment Platform
+   
+- Allow users to invest small amounts in stocks
+- Provide financial news, updates, and predictions.
+- Integrate with stock market APIs to fetch real-time data.
+
+3.Savings Goal Planner
+
+- Users can set specific financial goals (e.g., saving for a car or vacation).
+- Track progress towards goals.
+- Provide savings tips or micro-tasks to help users achieve their goals faster.
+
+Tech Stack
+
+- Front-end: CSS (Bootstap framwork), HTML, Javascript
+- Back-end: Node.js (EJS), MongoDB ( NoSQL ), Axios (for APIs request)
+- Unit Testing: .NET (C#)
