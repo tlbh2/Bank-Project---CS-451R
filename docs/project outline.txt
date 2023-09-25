@@ -21,3 +21,7 @@ Tech Stack
 - Front-end: CSS (Bootstap framwork), HTML, Javascript
 - Back-end: Node.js (EJS), MongoDB ( NoSQL ), Axios (for APIs request)
 - Unit Testing: .NET (C#)
+
+Hosting Service:
+- Google Cloud : can be free
+	+ 300$ credit when creating new google email
