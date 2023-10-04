@@ -1,4 +1,4 @@
-1.Personal Expense Tracker
+1.Personal Expense Tracker - Tin 
 
 - Allow users to input daily expenses and categorize them.
 - Visual analytics: Monthly/Yearly expense breakdowns, category-wise spending, etc.
