@@ -4,6 +4,9 @@
 - Visual analytics: Monthly/Yearly expense breakdowns, category-wise spending, etc.
 - Implement machine learning for predictive budgeting based on past spending habits.
 
+- ideas: 
+	+ bank api integration: Plaid
+
 2.Micro-Investment Platform
    
 - Allow users to invest small amounts in stocks
