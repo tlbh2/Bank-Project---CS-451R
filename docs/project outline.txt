@@ -1,11 +1,16 @@
 1.Personal Expense Tracker - Tin 
 
-- Allow users to input daily expenses and categorize them.
-- Visual analytics: Monthly/Yearly expense breakdowns, category-wise spending, etc.
+- Use Plaid api to get user transaction and categorize them with a simple neural network model
+- Reflect those analysis onto a pie/doughnut chart (in percentage) for visualization
 - Implement machine learning for predictive budgeting based on past spending habits.
 
 - ideas: 
-	+ bank api integration: Plaid
+	+ bank api integration: Plaid ( https://github.com/plaid/plaid-node )
+		- Retrieve the last 100 transactions for a transactions user
+		- Retrieve the transactions for a transactions user for the last thirty days
+	+ chartjs for visualization:
+		- Doughnut chart
+		- Pie chart
 
 2.Micro-Investment Platform
    
@@ -18,6 +23,14 @@
 - Users can set specific financial goals (e.g., saving for a car or vacation).
 - Track progress towards goals.
 - Provide savings tips or micro-tasks to help users achieve their goals faster.
+
+4. Home Page
+
+- update css file, redesign as needed
+- add authentication and security
+	+ implement database to store customer account (username + password)
+	+ optional since only a prove of concept: database encryption
+
 
 Tech Stack
 
