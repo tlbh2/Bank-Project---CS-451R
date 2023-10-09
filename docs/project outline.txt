@@ -15,7 +15,7 @@
 2.Micro-Investment Platform - Shaw
    
 - Allow users to invest small amounts in stocks
-- Provide financial news, updates, and predictions.
+- Provide financial news, updates, and predictions. (on progress)
 - Integrate with stock market APIs to fetch real-time data.
 
 3.Savings Goal Planner
