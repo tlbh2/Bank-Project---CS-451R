@@ -12,7 +12,7 @@
 		- Doughnut chart
 		- Pie chart
 
-2.Micro-Investment Platform
+2.Micro-Investment Platform - Shaw
    
 - Allow users to invest small amounts in stocks
 - Provide financial news, updates, and predictions.
