@@ -18,7 +18,7 @@
 - Provide financial news, updates, and predictions. (on progress)
 - Integrate with stock market APIs to fetch real-time data.
 
-3.Savings Goal Planner
+3.Savings Goal Planner - Aisha
 
 - Users can set specific financial goals (e.g., saving for a car or vacation).
 - Track progress towards goals.
@@ -31,6 +31,11 @@
 	+ implement database to store customer account (username + password)
 	+ optional since only a prove of concept: database encryption
 
+5. Login and Authen - Tin
+
+- Password Hashing and Salting using middleware
+- use passport.js to create cookie to save login session (browser closed => session end)
+- store user detail in mongodb
 
 Tech Stack
 

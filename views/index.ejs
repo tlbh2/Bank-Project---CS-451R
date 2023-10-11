@@ -1,28 +1,31 @@
-<%- include("partials/header.ejs") %>
+<%- include("./partials/header.ejs") %>
 
+<main>
+  <h1>About</h1>
+  <img class="profile" src="images/cat.jpeg" alt="cat profile">
+  <section class="goal-creation">
+    <h2>Create a New Savings Goal</h2>
+    <form id="goal-form">
+      <label for="goal-name">Goal Name:</label>
+      <input type="text" id="goal-name" name="goal-name" required>
 
-  <h1>home page </h1>
+      <label for="goal-amount">Target Amount:</label>
+      <input type="number" id="goal-amount" name="goal-amount" required>
 
-  <p>Lorem ipsum dolor sit amet, et proin, justo mus. Porta suspendisse turpis netus sagittis tortor at, vitae aliquet
-    pharetra cras velit, id gravida, neque nulla lorem, posuere hac. Ultricies eget lacus vehicula, in ante aliquam
-    et,facilisis tempor duis orci. Sed molestie sem in duis eu id, nisl id ultricies metus blandit eget praesent, pede
-    tempornullam, vitae arcu tortor suspendisse nibh risus. Nulla id suscipit reiciendis nulla erat. Porta enim aute
-    luctus,ducimus sodales dolor.
-  </p>
-  <p>
-    Quam purus justo enim purus, dolor enim, ut eu lectus nam eget nibh. Ante illum nullam leo, vivamus aliquam massa
-    massainceptos fermentum porttitor, blandit vehicula, lorem in placerat ut aliquam at sociosqu. Vivamus duis
-    ultricies
-    aliquam placerat, tincidunt scelerisque imperdiet, egestas erat vel. Libero rerum. Donec ligula tristique, purus
-    montes,
-    feugiatid nunc in a nec. Duis odio, vitae sed etiam mi massa, laoreet amet purus amet rhoncus, eget sed, arcu
-    urna.
-    Maecenaswisi id, at donec enim. Proin nisl, pulvinar leo suspendisse, cum parturient non, congue leo et ut in,
-    neque ut
-    lacusauctor quam fermentum urna. Metus quis, mauris dictum aptent ultrices nulla viverra ornare, tempor elit enim
-    leo
-    donec,sed sed. Vivamus sapien facilisi, tempor arcu nulla justo sed et, eget suspendisse lacus sed nunc mattis
-    lectus.
-    Metusgravida.</p>
+      <label for="goal-date">Target Date:</label>
+      <input type="date" id="goal-date" name="goal-date" required>
 
-  <%- include("partials/footer.ejs") %>
+      <button type="submit">Create Goal</button>
+    </form>
+  </section>
+
+  <section class="goal-tracking">
+    <h2>Your Savings Goals</h2>
+    <div class="goal-list">
+      <!-- Dynamically display user's savings goals here -->
+      <!-- Include progress tracking, savings tips, and other relevant information -->
+    </div>
+  </section>
+</main>
+
+<%- include("./partials/footer.ejs") %>
