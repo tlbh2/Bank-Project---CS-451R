@@ -37,6 +37,10 @@
 - use passport.js to create cookie to save login session (browser closed => session end)
 - store user detail in mongodb
 
+- ideas:
+	Bootstrap template for log-in and sign-up (include option for OAuth authentication)
+		+ Login - register : https://mdbootstrap.com/docs/standard/extended/login/#section-login-register
+
 Tech Stack
 
 - Front-end: CSS (Bootstap framwork), HTML, Javascript
