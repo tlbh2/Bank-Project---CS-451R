@@ -5,12 +5,16 @@
 - Implement machine learning for predictive budgeting based on past spending habits.
 
 - ideas: 
+<<<<<<< Updated upstream
 	+ bank api integration: Plaid ( https://github.com/plaid/plaid-node )
 		- Retrieve the last 100 transactions for a transactions user
 		- Retrieve the transactions for a transactions user for the last thirty days
 	+ chartjs for visualization:
 		- Doughnut chart
 		- Pie chart
+=======
+	+ bank api integration: Plaid - Free account: Use real data from up to 100 real financial accounts
+>>>>>>> Stashed changes
 
 2.Micro-Investment Platform - Shaw
    
