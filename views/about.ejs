@@ -1,21 +1,80 @@
 <%- include("./partials/header.ejs") %>
+<head>
+    <link rel="stylesheet" href="/styles/layout.css">
+  <link rel="stylesheet" href="/styles/content.css">
+</head>
 
-<h1>About Me</h1>
-<img class="profile" src="images/cat.jpeg" alt="cat profile">
-<p>
-  Quam purus justo enim purus, dolor enim, ut eu lectus nam eget nibh. Ante illum nullam leo, vivamus aliquam massa
-  massainceptos fermentum porttitor, blandit vehicula, lorem in placerat ut aliquam at sociosqu. Vivamus duis
-  ultricies
-  aliquam placerat, tincidunt scelerisque imperdiet, egestas erat vel. Libero rerum. Donec ligula tristique, purus
-  montes,
-  feugiatid nunc in a nec. Duis odio, vitae sed etiam mi massa, laoreet amet purus amet rhoncus, eget sed, arcu
-  urna.
-  Maecenaswisi id, at donec enim. Proin nisl, pulvinar leo suspendisse, cum parturient non, congue leo et ut in,
-  neque ut
-  lacusauctor quam fermentum urna. Metus quis, mauris dictum aptent ultrices nulla viverra ornare, tempor elit enim
-  leo
-  donec,sed sed. Vivamus sapien facilisi, tempor arcu nulla justo sed et, eget suspendisse lacus sed nunc mattis
-  lectus.
-  Metusgravida.</p>
+<main>
+  <h1>Savings Goal Planner</h1>
+  <img class="profile" src="images/OIP.jpeg" alt="picture">
+  <section class="goal-creation">
+    <h2>Create a New Savings Goal</h2>
+    <form id="goal-form">
+      <label for="goal-name">Goal Name:</label>
+      <input type="text" id="goal-name" name="goal-name" required>
 
-  <%- include("./partials/footer.ejs") %>
+      <label for="goal-amount">Target Amount:</label>
+      <input type="number" id="goal-amount" name="goal-amount" required>
+
+      <label for "goal-date">Target Date:</label>
+      <input type="date" id="goal-date" name="goal-date" required>
+
+      <button type="submit">Create Goal</button>
+    </form>
+  </section>
+
+  <section class="goal-tracking">
+    <h2>Your Savings Goals</h2>
+    <div class="goal-list">
+      <!-- Dynamically display user's savings goals here -->
+      <div id="user-savings-goals">
+        <!-- Goals will be added here dynamically using JavaScript -->
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include("./partials/footer.ejs") %>
+
+<script>
+  // Simulated user savings goals data (you should fetch this from your server)
+  const userSavingsGoals = [
+    {
+      name: "Emergency Fund",
+      amount: 5000,
+      date: "2023-12-31",
+      saved: 2000,
+      tips: "Cut unnecessary expenses to save more.",
+    },
+    {
+      name: "Vacation Fund",
+      amount: 3000,
+      date: "2023-11-15",
+      saved: 1000,
+      tips: "Consider a side gig to boost savings.",
+    },
+  ];
+
+  // Function to generate HTML elements for each savings goal
+  function displaySavingsGoals() {
+    const goalList = document.getElementById("user-savings-goals");
+
+    userSavingsGoals.forEach((goal) => {
+      const goalItem = document.createElement("div");
+      goalItem.classList.add("goal-item");
+
+      goalItem.innerHTML = `
+        <h3>${goal.name}</h3>
+        <p>Target Amount: $${goal.amount}</p>
+        <p>Target Date: ${goal.date}</p>
+        <p>Progress: ${((goal.saved / goal.amount) * 100).toFixed(2)}% completed</p>
+        <p>Savings Tips: ${goal.tips}</p>
+      `;
+
+      goalList.appendChild(goalItem);
+    });
+  }
+
+  // Call the function to display savings goals when the page loads
+  window.addEventListener("load", displaySavingsGoals);
+</script>
