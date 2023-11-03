@@ -41,14 +41,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/bankUserDB')
 
 //an object that created from Schema class of mongodb
 const userSchema = new mongoose.Schema({
-  name: String,
-  userName: String,
   email: String,
   password: String,
-  facebookId: String,
   googleId: String,
-  twitterId: String,
-  github: String,
 })
 
 userSchema.plugin(passportLocalMongoose)
@@ -81,7 +76,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'http://localhost:3000/auth/google/secrets', //redirect user to this URL once access is granted (or denied)
+      callbackURL: 'http://localhost:3000/auth/google/home', //redirect user to this URL once access is granted (or denied)
     },
     function (accessToken, refreshToken, profile, cb) {
       console.log(profile)
@@ -108,6 +103,71 @@ app.get(
     res.redirect('/secrets')
   }
 )
+
+app.get('/submit', function (req, res) {
+  if (req.isAuthenticated()) {
+    res.render('submit')
+  } else {
+    res.redirect('/login')
+  }
+})
+
+app.post('/submit', async function (req, res) {
+  const submittedSecret = req.body.secret
+  try {
+    const foundUser = await User.findById(req.user.id)
+    if (foundUser) {
+      foundUser.secret = submittedSecret
+      await foundUser.save()
+      res.redirect('/secrets')
+    }
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+app.post('/logout', function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err)
+    }
+    res.redirect('/')
+  })
+})
+
+app.post('/register', function (req, res) {
+  User.register(
+    { username: req.body.username },
+    req.body.password,
+    function (err, user) {
+      if (err) {
+        console.log(err)
+        res.redirect('/register')
+      } else {
+        passport.authenticate('local')(req, res, function () {
+          res.redirect('/index')
+        })
+      }
+    }
+  )
+})
+
+app.post('/login', function (req, res) {
+  const user = new User({
+    username: req.body.username,
+    password: req.body.password,
+  })
+
+  req.login(user, function (err) {
+    if (err) {
+      console.log(err)
+    } else {
+      passport.authenticate('local')(req, res, function () {
+        res.redirect('/index')
+      })
+    }
+  })
+})
 
 app.get('/index', (req, res) => {
   res.render('home.ejs')
