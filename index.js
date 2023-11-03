@@ -76,7 +76,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'http://localhost:3000/auth/google/home', //redirect user to this URL once access is granted (or denied)
+      callbackURL: 'http://localhost:3000/auth/google/index', //redirect user to this URL once access is granted (or denied)
     },
     function (accessToken, refreshToken, profile, cb) {
       console.log(profile)
@@ -96,11 +96,11 @@ app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }))
 
 //make sure the link match Authorized redicet URLs on google APIs account
 app.get(
-  '/auth/google/secrets',
+  '/auth/google/index',
   passport.authenticate('google', { failureRedirect: '/login' }),
   function (req, res) {
     // Successful authentication, redirect to secrets.
-    res.redirect('/secrets')
+    res.redirect('/index')
   }
 )
 
@@ -185,8 +185,12 @@ app.get('/about', (req, res) => {
   res.render('about.ejs')
 })
 
-app.get('/logInSignUp', (req, res) => {
-  res.render('logInSignUp.ejs')
+app.get('/logIn', (req, res) => {
+  res.render('logIn.ejs')
+})
+
+app.get('/signUp', (req, res) => {
+  res.render('signUp.ejs')
 })
 
 app.listen(port, () => {
