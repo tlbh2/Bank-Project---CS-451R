@@ -44,6 +44,7 @@ const userSchema = new mongoose.Schema({
   email: String,
   password: String,
   googleId: String,
+  profilePic: String,
 })
 
 userSchema.plugin(passportLocalMongoose)
@@ -76,12 +77,13 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'http://localhost:3000/auth/google/index', //redirect user to this URL once access is granted (or denied)
+      callbackURL: 'http://localhost:3000/auth/google/index', //redirect user to this URL once access is granted (or denied), need to be the same as the one on Google APIs Console
     },
     function (accessToken, refreshToken, profile, cb) {
       console.log(profile)
 
-      User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      //capture profile id and picture
+      User.findOrCreate({ googleId: profile.id }, { profilePic: profile.photos[0].value }, function (err, user) {
         return cb(err, user)
       })
     }
@@ -89,8 +91,8 @@ passport.use(
 )
 
 app.get('/', (req, res) => {
-  res.render('home.ejs')
-})
+  res.render('home.ejs', { req: req });
+});
 
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }))
 
@@ -170,28 +172,29 @@ app.post('/login', function (req, res) {
 })
 
 app.get('/index', (req, res) => {
-  res.render('home.ejs')
-})
+  // pass the profile picture URL to the template
+  res.render('home.ejs', { req: req, profilePic: req.user ? req.user.profilePic : null });
+});
 
 app.get('/contact', (req, res) => {
-  res.render('contact.ejs')
+  res.render('contact.ejs', { req: req });
 })
 
 app.get('/plaidChartView', (req, res) => {
-  res.render('plaidChartView.ejs')
-})
+  res.render('plaidChartView.ejs', { req: req });
+});
 
 app.get('/about', (req, res) => {
-  res.render('about.ejs')
-})
+  res.render('about.ejs', { req: req });
+});
 
 app.get('/logIn', (req, res) => {
-  res.render('logIn.ejs')
-})
+  res.render('logIn.ejs', { req: req });
+});
 
 app.get('/signUp', (req, res) => {
-  res.render('signUp.ejs')
-})
+  res.render('signUp.ejs', { req: req });
+});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`)
