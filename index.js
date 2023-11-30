@@ -485,6 +485,14 @@ app.get('/signUp', (req, res) => {
   res.render('signUp.ejs', { req: req });
 });
 
+app.get('/profile', (req, res) => {
+  res.render('profile.ejs', { req: req });
+});
+
+app.get('/link', (req, res) => {
+  res.render('link.ejs', { req: req });
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`)
 })
