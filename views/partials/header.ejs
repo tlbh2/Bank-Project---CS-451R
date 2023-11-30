@@ -43,10 +43,10 @@
           class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
         >
           <li>
-            <a href="/home" class="nav-link px-2 text-secondary">home.ejs</a>
+            <a href="/index" class="nav-link px-2 text-secondary">Welcome</a>
           </li>
           <li>
-            <a href="/contact" class="nav-link px-2 text-white">contact.ejs</a>
+            <a href="/contact" class="nav-link px-2 text-white">Micro-Investment</a>
           </li>
           <li>
             <a href="/plaidChartView" class="nav-link px-2 text-white"
@@ -54,7 +54,7 @@
             >
           </li>
           <li>
-            <a href="/about" class="nav-link px-2 text-white">about.ejs</a>
+            <a href="/about" class="nav-link px-2 text-white">Saving planner</a>
           </li>
         </ul>
 
@@ -75,12 +75,9 @@
       <% } else { %>
           <div class="dropdown text-end">
               <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <% if (profilePic) { %>
-                  <img src="<%= profilePic %>" alt="mdo" width="32" height="32" class="rounded-circle">
-                <% } %>
+                  <!-- add profile picture  -->
               </a>
               <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-                  <li><a class="dropdown-item" href="#">New project...</a></li>
                   <li><a class="dropdown-item" href="#">Settings</a></li>
                   <li><a class="dropdown-item" href="#">Profile</a></li>
                   <li><hr class="dropdown-divider"></li>

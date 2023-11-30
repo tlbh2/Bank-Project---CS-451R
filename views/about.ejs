@@ -2,11 +2,14 @@
 <head>
   <link rel="stylesheet" href="/styles/layout.css">
   <link rel="stylesheet" href="/styles/content.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <main>
   <h1>Savings Goal Planner</h1>
   <img class="profile" src="images/OIP.jpeg" alt="picture">
+  
+  <!-- Section for goal creation form -->
   <section class="goal-creation">
     <h2>Create a New Savings Goal</h2>
     <form id="goal-form">
@@ -16,20 +19,40 @@
       <label for="goal-amount">Target Amount:</label>
       <input type="number" id="goal-amount" name="goal-amount" required>
 
-      <label for "goal-date">Target Date:</label>
+      <label for="goal-date">Target Date:</label>
       <input type="date" id="goal-date" name="goal-date" required>
 
-      <button type="submit">Create Goal</button>
+      <button type="button" onclick="createGoal()">Create Goal</button>
     </form>
   </section>
 
+  <!-- Section for money allocation form -->
+  <section class="money-allocation">
+    <h2>Allocate Money to Goals</h2>
+    <form id="allocation-form">
+      <label for="allocation-amount">Amount Saved:</label>
+      <input type="number" id="allocation-amount" name="allocation-amount" required>
+
+      <label for="allocation-goal">Choose Goal:</label>
+      <select id="allocation-goal" name="allocation-goal" required>
+        <!-- Goals will be added here dynamically using JavaScript -->
+      </select>
+
+      <button type="button" onclick="allocateMoney()">Allocate Money</button>
+    </form>
+  </section>
+
+  <!-- Section for savings goals progress line chart -->
+  <section class="goal-progress">
+    <h2>Your Savings Goals Progress</h2>
+    <canvas id="savingsChart" width="400" height="200"></canvas>
+  </section>
+
+  <!-- Section to list and display savings goals -->
   <section class="goal-tracking">
     <h2>Your Savings Goals</h2>
-    <div class="goal-list">
-      <!-- Dynamically display user's savings goals here -->
-      <div id="user-savings-goals">
-        <!-- Goals will be added here dynamically using JavaScript -->
-      </div>
+    <div class="goal-list" id="user-savings-goals">
+      <!-- Goals will be added here dynamically using JavaScript -->
     </div>
   </section>
 </main>
@@ -37,29 +60,111 @@
 <%- include("./partials/footer.ejs") %>
 
 <script>
-  // Simulated user savings goals data (you should fetch this from your server)
-  const userSavingsGoals = [
-    {
-      name: "Emergency Fund",
-      amount: 5000,
-      date: "2023-12-31",
-      saved: 2000,
-      tips: "Cut unnecessary expenses to save more.",
-    },
-    {
-      name: "Vacation Fund",
-      amount: 3000,
-      date: "2023-11-15",
-      saved: 1000,
-      tips: "Consider a side gig to boost savings.",
-    },
-  ];
+  // Array to store user's savings goals
+  const userSavingsGoals = [];
 
-  // Function to generate HTML elements for each savings goal
-  function displaySavingsGoals() {
+  // Function to create a savings goal
+  function createGoal() {
+    const goalName = document.getElementById("goal-name").value;
+    const goalAmount = parseFloat(document.getElementById("goal-amount").value);
+    const goalDate = document.getElementById("goal-date").value;
+
+    // Validate input
+    if (!goalName || isNaN(goalAmount) || goalAmount <= 0 || !goalDate) {
+      alert("Please enter valid goal details.");
+      return;
+    }
+
+    // Create a new goal object
+    const newGoal = {
+      name: goalName,
+      amount: goalAmount,
+      date: goalDate,
+      saved: 0,
+      tips: "Start saving regularly to achieve your goal!",
+    };
+
+    // Add the goal to the array
+    userSavingsGoals.push(newGoal);
+
+    // Update the line chart and goal list
+    updateLineChart();
+    updateGoalList();
+
+    // Clear the form
+    document.getElementById("goal-form").reset();
+  }
+
+  // Function to allocate money to a selected goal
+  function allocateMoney() {
+    const allocationAmount = parseFloat(document.getElementById("allocation-amount").value);
+    const selectedGoalIndex = document.getElementById("allocation-goal").value;
+
+    // Validate input
+    if (isNaN(allocationAmount) || allocationAmount <= 0 || selectedGoalIndex === "") {
+      alert("Please enter a valid allocation amount and choose a goal.");
+      return;
+    }
+
+    // Update the saved amount for the selected goal
+    userSavingsGoals[selectedGoalIndex].saved += allocationAmount;
+
+    // Update the line chart and goal list
+    updateLineChart();
+    updateGoalList();
+
+    // Clear the form
+    document.getElementById("allocation-form").reset();
+  }
+
+  // Function to update the line chart with user's savings goals
+  function updateLineChart() {
+    const chartData = {
+      labels: userSavingsGoals.map(goal => goal.name),
+      values: userSavingsGoals.map(goal => (goal.saved / goal.amount) * 100),
+    };
+
+    const ctx = document.getElementById('savingsChart').getContext('2d');
+    const savingsChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: chartData.labels,
+        datasets: [{
+          label: 'Savings Progress',
+          data: chartData.values,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 2,
+          fill: false,
+        }],
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'linear',
+            position: 'bottom',
+          },
+          y: {
+            beginAtZero: true,
+            max: 100,
+            title: {
+              display: true,
+              text: 'Progress (%)',
+            },
+          },
+        },
+      },
+    });
+  }
+
+  // Function to update the goal list
+  function updateGoalList() {
     const goalList = document.getElementById("user-savings-goals");
 
-    userSavingsGoals.forEach((goal) => {
+    // Clear existing goal items
+    goalList.innerHTML = "";
+
+    // Create HTML elements for each goal
+    userSavingsGoals.forEach((goal, index) => {
       const goalItem = document.createElement("div");
       goalItem.classList.add("goal-item");
 
@@ -73,8 +178,18 @@
 
       goalList.appendChild(goalItem);
     });
+
+    // Update the dropdown list for money allocation
+    const allocationGoalDropdown = document.getElementById("allocation-goal");
+    allocationGoalDropdown.innerHTML = "";
+    userSavingsGoals.forEach((goal, index) => {
+      const option = document.createElement("option");
+      option.value = index.toString();
+      option.text = goal.name;
+      allocationGoalDropdown.appendChild(option);
+    });
   }
 
-  // Call the function to display savings goals when the page loads
-  window.addEventListener("load", displaySavingsGoals);
+  // Call the function to update the goal list when the page loads
+  window.addEventListener("load", updateGoalList);
 </script>
