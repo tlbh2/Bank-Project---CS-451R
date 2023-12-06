@@ -223,7 +223,7 @@ app.get('/contact', (req, res) => {
 })
 
 app.get('/plaidChartView', (req, res) => {
-  res.sendFile('index.html', { root: path.join(__dirname, '../public') });
+  res.render('plaidChartView.ejs', { req: req });
 });
 
 app.get('/about', (req, res) => {
