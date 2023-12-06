@@ -12,6 +12,9 @@
             font-family: Arial, sans-serif;
             border-collapse: collapse;
             width: 100%;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         th, td {
@@ -21,19 +24,90 @@
         }
 
         th {
-            background-color: #f2f2f2;
-        }
+    background-color: #f2f2f2;
+}
 
-        /* Set a fixed width for the graph column */
+.graph-column img {
+    width: 80px;
+    height: auto;
+}
+
         td.graph-column img {
             width: 100px; 
         }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h2, h3 {
+    color: #333;
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+}
+
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        select, input, button {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:not(.cash-out) {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+}
+
+
+button.cash-out {
+    background-color: #e53935; 
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button.cash-out:hover {
+    background-color: #c62828; 
+}
+        #investmentDetails {
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+#investmentDetails h3 {
+    color: #333;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+}
+        
     </style>
 </head>
 
 <body>
     <h2>Micro Investment</h2>
-    <table>
+    <table id="cryptoTable">
         <!--Make the title for the table-->
         <tr>
             <th>Crypto Name</th>
@@ -73,7 +147,174 @@
             <td>$10 billion</td>
             <td class="graph-column"><img src="images/micropnj/dogegraph.png" alt="Dogecoin Graph"></td>
         </tr>
+        <tr>
+            <!--Cardano data-->
+            
+            <td>
+                <img src="images/micropnj/cardanologo.png" width="24" height = "24" alt = "cardano logo">
+                Cardano</td>
+            <td>$0,32</td>
+            <td>0%</td>
+            <td>$11,25 billion</td>
+            <td class="graph-column"><img src="images/micropnj/cardanograph.png" alt="Cardano Graph"></td>
+        </tr>
+        <tr>
+            <!--BNB data-->
+            
+            <td>
+                <img src="images/micropnj/bnblogo.png" width="24" height = "24" alt = "bnb logo">
+                BNB</td>
+            <td>$229,01</td>
+            <td>-2,85%</td>
+            <td>$34.73 billion</td>
+            <td class="graph-column"><img src="images/micropnj/bnbgraph.png" alt="bnb Graph"></td>
+        </tr>
+        <tr>
+            <!--XRP data-->
+            
+            <td>
+                <img src="images/micropnj/xrplogo.png" width="24" height = "24" alt = "xrp logo">
+                XRP</td>
+            <td>$0.61</td>
+            <td>0%</td>
+            <td>$32.71 billion</td>
+            <td class="graph-column"><img src="images/micropnj/xrpgraph.png" alt="xrp Graph"></td>
+        </tr>
     </table>
+
+
+    <h2>Select a Cryptocurrency to Invest</h2>
+
+    <label for="cryptoSelect">Choose a cryptocurrency:</label>
+    <select id="cryptoSelect">
+        <option value="Bitcoin">Bitcoin</option>
+        <option value="Ethereum">Ethereum</option>
+        <option value="Dogecoin">Dogecoin</option>
+        <option value="Cardano">Cardano</option>
+        <option value="BNB">BNB</option>
+        <option value="XRP">XRP</option>
+    </select>
+
+    <br>
+
+    <label for="investmentAmount">Enter investment amount:</label>
+    <input type="number" id="investmentAmount" placeholder="Enter amount">
+
+    <br>
+
+    <button onclick="invest()">Invest</button>
+
+    <div id="investmentDetails" style="display: none;">
+        <h3>Investment Details</h3>
+        <table>
+            <tr>
+                <th>Crypto Name</th>
+                <th>Invested Amount</th>
+                <th>24hr % Change</th>
+                <th>Gain/Loss</th>
+            </tr>
+            <tbody id="investmentRows"></tbody>
+        </table>
+
+        <label for="cryptoToCashOut">Choose a cryptocurrency to cash out:</label>
+        <select id="cryptoToCashOut"></select>
+        <br>
+        <button class="cash-out" onclick="cashOut()">Cash Out</button>
+
+    </div>
+
+    <script>
+
+        var investedCryptos = new Set();
+
+        function invest() {
+            var selectedCrypto = document.getElementById("cryptoSelect").value;
+            var investmentAmount = parseFloat(document.getElementById("investmentAmount").value);
+
+            if (isNaN(investmentAmount) || investmentAmount <= 0) {
+                alert("Please enter a valid investment amount.");
+                return;
+            }
+
+
+            var table = document.getElementById("cryptoTable");
+            var rowIndex = -1;
+
+            for (var i = 1; i < table.rows.length; i++) {
+                if (table.rows[i].cells[0].innerText.includes(selectedCrypto)) {
+                    rowIndex = i;
+                    break;
+                }
+            }
+
+            if (rowIndex !== -1) {
+                var twentyFourHourChange = parseFloat(table.rows[rowIndex].cells[2].innerText.replace('%', ''));
+                var gainLoss = (twentyFourHourChange / 100) * investmentAmount;
+
+
+                var detailsTable = document.getElementById("investmentRows");
+                var newRow = detailsTable.insertRow();
+                newRow.innerHTML = `<td>${selectedCrypto}</td><td>$${investmentAmount.toFixed(2)}</td><td>${twentyFourHourChange.toFixed(2)}%</td><td>$${gainLoss.toFixed(2)}</td>`;
+
+
+                document.getElementById("investmentDetails").style.display = "block";
+
+
+                investedCryptos.add(selectedCrypto);
+
+
+                updateCashOutDropdown();
+            } else {
+                alert("Selected cryptocurrency not found in the table.");
+            }
+        }
+
+        function cashOut() {
+            var selectedCryptoToCashOut = document.getElementById("cryptoToCashOut").value;
+
+            if (!investedCryptos.has(selectedCryptoToCashOut)) {
+                alert("Please choose a valid cryptocurrency to cash out.");
+                return;
+            }
+
+
+            alert("You have successfully cashed out your investment in " + selectedCryptoToCashOut + ".");
+
+
+            investedCryptos.delete(selectedCryptoToCashOut);
+
+
+            updateCashOutDropdown();
+
+
+            var detailsTable = document.getElementById("investmentRows");
+            var rows = detailsTable.getElementsByTagName('tr');
+            for (var i = 0; i < rows.length; i++) {
+                if (rows[i].getElementsByTagName('td')[0].innerText === selectedCryptoToCashOut) {
+                    detailsTable.deleteRow(i);
+                    break;
+                }
+            }
+
+
+            if (investedCryptos.size === 0) {
+                document.getElementById("investmentDetails").style.display = "none";
+            }
+        }
+
+
+        function updateCashOutDropdown() {
+            var cashOutDropdown = document.getElementById("cryptoToCashOut");
+            cashOutDropdown.innerHTML = "";
+
+            investedCryptos.forEach(function (crypto) {
+                var option = document.createElement("option");
+                option.value = crypto;
+                option.text = crypto;
+                cashOutDropdown.add(option);
+            });
+        }
+    </script>
 </body>
 
 </html>
