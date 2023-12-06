@@ -1,4 +1,4 @@
-<%- include("./partials/header.ejs") %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,6 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/layout.css">
+    <link rel="stylesheet" href="/styles/content.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Micro Investment</title>
     <style>
         table {
@@ -17,91 +20,81 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid #dddddd;
             text-align: left;
             padding: 8px;
         }
 
         th {
-    background-color: #f2f2f2;
-}
+            background-color: #f2f2f2;
+        }
 
-.graph-column img {
-    width: 80px;
-    height: auto;
-}
+        .graph-column img {
+            width: 80px;
+            height: auto;
+        }
 
         td.graph-column img {
-            width: 100px; 
+            width: 100px;
         }
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px auto;
-            max-width: 800px;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        h2, h3 {
-    color: #333;
-    border-bottom: 2px solid #333;
-    padding-bottom: 5px;
-}
-
 
         select {
             padding: 10px;
             font-size: 16px;
         }
 
-        select, input, button {
-    margin-top: 10px;
-    padding: 10px;
-    font-size: 16px;
-}
+        select,
+        input,
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
 
-button {
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-button:not(.cash-out) {
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-}
+        button:not(.cash-out) {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
 
 
-button.cash-out {
-    background-color: #e53935; 
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-}
+        button.cash-out {
+            background-color: #e53935;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
 
-button:hover {
-    background-color: #45a049;
-}
+        button:hover {
+            background-color: #45a049;
+        }
 
-button.cash-out:hover {
-    background-color: #c62828; 
-}
+        button.cash-out:hover {
+            background-color: #c62828;
+        }
+
         #investmentDetails {
-    margin-top: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-}
+            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
 
-#investmentDetails h3 {
-    color: #333;
-    border-bottom: 2px solid #333;
-    padding-bottom: 10px;
-}
-        
+        #investmentDetails h3 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
     </style>
 </head>
 
@@ -119,66 +112,72 @@ button.cash-out:hover {
         <tr>
             <!--Bitcoin data-->
             <td>
-                <img src="images/micropnj/coin-1.svg" width="24" height = "24" alt = "bitcoin logo">
-                Bitcoin</td>
+                <img src="/public/images/micropnj/coin-1.svg" width="24" height="24" alt="bitcoin logo">
+                Bitcoin
+            </td>
             <td>$33.830,700</td>
             <td>-1,88%</td>
             <td>$900 billion</td>
-            <td class="graph-column"><img src="images/micropnj/bitcoin.png" alt="Bitcoin Graph"></td>
+            <td class="graph-column"><img src="/public/images/micropnj/bitcoin.png" alt="Bitcoin Graph"></td>
         </tr>
         <tr>
             <!--Ethereum data-->
             <td>
-                <img src="images/micropnj/ethlogo.png" width="24" height = "24" alt = "ethereum logo">
-                Ethereum</td>
+                <img src="/public/images/micropnj/ethlogo.png" width="24" height="24" alt="ethereum logo">
+                Ethereum
+            </td>
             <td>$1.770,03</td>
             <td>-0.93%</td>
             <td>$400 billion</td>
-            <td class="graph-column"><img src="images/micropnj/ethe.png" alt="Ethereum Graph"></td>
+            <td class="graph-column"><img src="/public/images/micropnj/ethe.png" alt="Ethereum Graph"></td>
         </tr>
         <tr>
             <!--Dogecoin data-->
-            
+
             <td>
-                <img src="images/micropnj/dogelogo.png" width="24" height = "24" alt = "dogecoin logo">
-                Dogecoin</td>
+                <img src="/public/images/micropnj/dogelogo.png" width="24" height="24" alt="dogecoin logo">
+                Dogecoin
+            </td>
             <td>$0,072</td>
             <td>+4,57%</td>
             <td>$10 billion</td>
-            <td class="graph-column"><img src="images/micropnj/dogegraph.png" alt="Dogecoin Graph"></td>
+            <td class="graph-column"><img src="/public/images/micropnj/dogegraph.png" alt="Dogecoin Graph"></td>
         </tr>
         <tr>
             <!--Cardano data-->
-            
+
             <td>
-                <img src="images/micropnj/cardanologo.png" width="24" height = "24" alt = "cardano logo">
-                Cardano</td>
+                <img src="/public/images/micropnj/cardanologo.png" width="24" height="24" alt="cardano logo">
+                Cardano
+            </td>
             <td>$0,32</td>
             <td>0%</td>
             <td>$11,25 billion</td>
-            <td class="graph-column"><img src="images/micropnj/cardanograph.png" alt="Cardano Graph"></td>
+            <td class="graph-column"><img src="/public/images/micropnj/cardanograph.png" alt="Cardano Graph"></td>
         </tr>
         <tr>
             <!--BNB data-->
-            
+
             <td>
-                <img src="images/micropnj/bnblogo.png" width="24" height = "24" alt = "bnb logo">
-                BNB</td>
+                <img src="/public/images/micropnj/bnblogo.png" width="24" height="24" alt="bnb logo">
+                BNB
+            </td>
             <td>$229,01</td>
             <td>-2,85%</td>
             <td>$34.73 billion</td>
-            <td class="graph-column"><img src="images/micropnj/bnbgraph.png" alt="bnb Graph"></td>
+            <td class="graph-column"><img src="/public/images/micropnj/bnbgraph.png" alt="bnb Graph"></td>
         </tr>
         <tr>
             <!--XRP data-->
-            
+
             <td>
-                <img src="images/micropnj/xrplogo.png" width="24" height = "24" alt = "xrp logo">
-                XRP</td>
+                <img src="/public/images/micropnj/xrplogo.png" width="24" height="24" alt="xrp logo">
+                XRP
+            </td>
             <td>$0.61</td>
             <td>0%</td>
             <td>$32.71 billion</td>
-            <td class="graph-column"><img src="images/micropnj/xrpgraph.png" alt="xrp Graph"></td>
+            <td class="graph-column"><img src="/public/images/micropnj/xrpgraph.png" alt="xrp Graph"></td>
         </tr>
     </table>
 
@@ -224,89 +223,76 @@ button.cash-out:hover {
     </div>
 
     <script>
-
         var investedCryptos = new Set();
-
+    
         function invest() {
             var selectedCrypto = document.getElementById("cryptoSelect").value;
             var investmentAmount = parseFloat(document.getElementById("investmentAmount").value);
-
+    
             if (isNaN(investmentAmount) || investmentAmount <= 0) {
                 alert("Please enter a valid investment amount.");
                 return;
             }
-
-
+    
             var table = document.getElementById("cryptoTable");
             var rowIndex = -1;
-
+    
             for (var i = 1; i < table.rows.length; i++) {
                 if (table.rows[i].cells[0].innerText.includes(selectedCrypto)) {
                     rowIndex = i;
                     break;
                 }
             }
-
+    
             if (rowIndex !== -1) {
                 var twentyFourHourChange = parseFloat(table.rows[rowIndex].cells[2].innerText.replace('%', ''));
                 var gainLoss = (twentyFourHourChange / 100) * investmentAmount;
-
-
+    
                 var detailsTable = document.getElementById("investmentRows");
                 var newRow = detailsTable.insertRow();
                 newRow.innerHTML = `<td>${selectedCrypto}</td><td>$${investmentAmount.toFixed(2)}</td><td>${twentyFourHourChange.toFixed(2)}%</td><td>$${gainLoss.toFixed(2)}</td>`;
-
-
+    
                 document.getElementById("investmentDetails").style.display = "block";
-
-
+    
                 investedCryptos.add(selectedCrypto);
-
-
+    
                 updateCashOutDropdown();
             } else {
                 alert("Selected cryptocurrency not found in the table.");
             }
         }
-
+    
         function cashOut() {
             var selectedCryptoToCashOut = document.getElementById("cryptoToCashOut").value;
-
+    
             if (!investedCryptos.has(selectedCryptoToCashOut)) {
                 alert("Please choose a valid cryptocurrency to cash out.");
                 return;
             }
-
-
+    
             alert("You have successfully cashed out your investment in " + selectedCryptoToCashOut + ".");
-
-
+    
             investedCryptos.delete(selectedCryptoToCashOut);
-
-
+    
             updateCashOutDropdown();
-
-
+    
             var detailsTable = document.getElementById("investmentRows");
             var rows = detailsTable.getElementsByTagName('tr');
-            for (var i = 0; i < rows.length; i++) {
+            for (var i = rows.length - 1; i >= 0; i--) {
                 if (rows[i].getElementsByTagName('td')[0].innerText === selectedCryptoToCashOut) {
                     detailsTable.deleteRow(i);
-                    break;
                 }
             }
-
-
+    
             if (investedCryptos.size === 0) {
                 document.getElementById("investmentDetails").style.display = "none";
             }
         }
-
-
+    
         function updateCashOutDropdown() {
             var cashOutDropdown = document.getElementById("cryptoToCashOut");
             cashOutDropdown.innerHTML = "";
-
+    
             investedCryptos.forEach(function (crypto) {
                 var option = document.createElement("option");
                 option.value = crypto;
@@ -318,5 +304,3 @@ button.cash-out:hover {
 </body>
 
 </html>
-
-<%- include("./partials/footer.ejs") %>
