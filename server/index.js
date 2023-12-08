@@ -171,14 +171,12 @@ app.post('/submit', async function (req, res) {
   }
 })
 
-app.post('/logout', function (req, res, next) {
+app.get('/logout', function (req, res) {
   req.logout(function (err) {
-    if (err) {
-      return next(err)
-    }
-    res.redirect('/')
-  })
-})
+    if (err) { return next(err); }
+    res.redirect('/'); // Redirect to home or login page
+  });
+});
 
 app.post('/register', function (req, res) {
   User.register(
